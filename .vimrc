@@ -1,119 +1,211 @@
-set nocompatible              " be iMproved, required
-set mouse=a
-filetype off                  " required
+" 设置文件编码
 
-" set the runtime path to include Vundle and initialize
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936
+set fileencoding=gb2312
+set termencoding=utf-8
+
+set mouse=a
+
+syntax on
+" 设置颜色
+color darkblue
+set cursorline
+" set cursorcolumn
+
+set incsearch
+set ignorecase
+set smartcase
+"设置保持历史记录10000
+set history=10000
+set nofoldenable
+set confirm
+set backspace=indent,eol,start
+set t_Co=256
+set report=0
+set nowrap
+set scrolloff=5
+set number
+set ruler
+set showmatch
+set showcmd
+set title
+set laststatus=2
+set matchtime=2
+set matchpairs+=<:>
+
+" 设置文件不备份，这里被注释掉；
+"          set nobackup
+"          set noundofile
+"          set noswapfile
+set backupext=.bak
+set backupdir=~/.vim/vim_bak/
+
+set autoindent
+set smartindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set smarttab
+"set textwidth=120
+"set colorcolumn=+1
+
+set autoread
+set autowrite
+
+"Vundle
+set nocompatible
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
-" install ag for global search
-Plugin 'ag.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
+Plugin 'scrooloose/nerdtree'
+Plugin 'mattn/calendar-vim'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'suan/vim-instant-markdown'
+"Plugin 'lervag/vimtex'
+Plugin 'sirver/ultisnips'
+Plugin 'pboettch/vim-cmake-syntax'
+"Plugin 'Valloric/YoucompleteMe'
+"Plugin 'kien/ctrlp.vim'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'EasyGrep'
+"Plugin 'scrooloose/syntastic'
+Plugin 'Valloric/ListToggle'
+Plugin 'bling/vim-airline'
+" for python
+"Plugin 'maralla/completor.vim'
+"Plugin 'vim-scripts/indentpython.vim'
+"Plugin 'nvie/vim-flake8'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'Yggdroot/indentLine'
+"Plugin 'lervag/vimtex'
 Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
+"Plugin 'EditPlus'
+"Plugin 'cst'
+"Plugin 'Xdebug'
+"Plugin 'PyChimp'
+Plugin 'snipMate'
+Plugin 'mileszs/ack.vim'
+Plugin 'rking/ag.vim'
+Plugin 'kien/ctrlp.vim'
+call vundle#end()
+filetype plugin indent on
 
-" cmake color
-Plugin 'nickhutchinson/vim-cmake-syntax'
+"设置日历方面
+let g:calendar_diary="/mnt/c/Users/mydai/diary/"
+let g:calendar_focus_today=1
+"let g:ackprg='ag --nogroup --nocolor --column'
 
-" add to vim-colorschemes
-Plugin 'flazz/vim-colorschemes'
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mod=0
+set conceallevel=1
 
-" cpp highlight addition
-Plugin 'octol/vim-cpp-enhanced-highlight'
-
-" air line for mulit file tag
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-
-" add tagbar 
-Plugin 'majutsushi/tagbar'
-
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-" <Normal Configuration>
-" highlight CursorLine   cterm=NONE ctermbg=blue ctermfg=NONE guibg=NONE guifg=NONE
-colorscheme molokai     " code color theme
-set ic              " ignore case
-set number          " show line number
-set autoindent      " auto align
-set ts=4            " tab width is 4 space
-set expandtab       " replace tab to space
-set nowrap          " no auto wrap
-set hlsearch        " high light with key words when search it
-set incsearch       " set search real time
-" red（红），white（白），black（黑），green（绿），yellow（黄），blue（蓝），purple（紫），
-" gray（灰），brown（棕），tan(褐色)，syan(青色)
-" 更多高亮颜色设置, 可以:h highlight 查看manual
-highlight Search term=inverse cterm=inverse guibg=NONE
-highlight Cursorline cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
-
-" guifg=NONE
-" highlight CursorColumn cterm=NONE ctermbg=blue ctermfg=NONE guibg=NONE
-" guifg=NONE
-let g:airline_theme='dark'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-
-" <NERDTree Configuration>
-Bundle 'scrooloose/nerdtree'
-map <F2> :NERDTreeToggle<CR>
-map <F3> :call CurtineIncSw()<CR>
-map <F8> :Tagbar<CR>
+" YouCompleteme config:fedora 27 and later:
+"      sudo dnf install cmake gcc g++ make python3-devel
+" Compiling YCM with semantic support for C-family languages through libclang;
+"      cd ~/.vim/bundle/youcompleteme
+"      python3 install.py --clang-completer
+" YCM Configuration notes:
+let g:ycm_min_num_of_chars_for_completion=3
+let g:ycm_python_binary_path='python'
+let g:ycm_seed_identifiers_with_syntax=1
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_auto_trigger=1
 
 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
-autocmd vimenter * NERDTree
+" pip3 install jedi
+" 为了Python3的第三方库安装Jedi插件
+" Plugin 'davidhalter/jedi-vim'
+"===============================Jedi==================================
+if has('python3')
+let g:loaded_youcompleteme = 1 " 判断如果是python3的话，就禁用ycmd。
+let g:jedi#force_py_version = 3
+let g:pymode_python = 'python3'
+endif
+"===============================Jedi===================================
+"Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 
-" <Taglist configuration>
-Bundle 'taglist.vim'
-let Tlist_Ctags_Cmd='ctags'
-let Tlist_Show_One_File=1               "不同时显示多个文件的tag，只显示当前文件的
-let Tlist_WinWidt =28                   "设置taglist的宽度
-let Tlist_Exit_OnlyWindow=1             "如果taglist窗口是最后一个窗口，则退出vim
-let Tlist_Use_Right_Window=1            "在右侧窗口中显示taglist窗口
-"let Tlist_Use_Left_Windo =1             "在左侧窗口中显示taglist窗口
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
 
-" cpp highlight setting
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-let g:cpp_concepts_highlight = 1
-let c_no_curly_error=1
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-" <Ctrlp configuration>
-Bundle 'kien/ctrlp.vim'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'scrooloose/syntastic'
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+"vim打开文件，光标定位到上次退出的位置；
+if has("autocmd")
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+endif"`'")"'")
+
+set paste " 设置可粘贴模式
+
+" set runtimepath^=~/.vim/bundle/ag
 
